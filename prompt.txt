@@ -1,0 +1,134 @@
+🧠 PROJECT CONTEXT
+
+You are a senior full-stack software engineer. Your task is to design and develop a simple but production-quality web application that collects user data via a form and stores it in a backend (JSON file or lightweight database).
+
+The implementation must follow clean architecture, best practices, and scalable structure, even though the project is simple.
+
+🎯 PROJECT REQUIREMENTS
+
+Build a User Information Collection Web App with the following features:
+
+1. Frontend
+Create a responsive web form with fields:
+    Full Name
+    Email
+    Phone Number
+    Address
+    City
+    State
+    Country
+    Zip Code
+    Additional Notes (optional)
+    Features:
+    Client-side validation (required fields, email format, phone format)
+    Clean UI (basic but professional)
+    Success & error messages
+    Loading state on submit
+
+2. Backend
+    Build a REST API to:
+    Accept form submission (POST /api/users)
+    Fetch all users (GET /api/users)
+Store data in:
+JSON file (preferred for simplicity)
+OR
+Lightweight DB like SQLite (optional)
+Requirements:
+    Input validation (backend)
+    Proper error handling
+    Unique ID for each user
+    Timestamp for each entry
+
+3. Tech Stack (MANDATORY)
+Use simple, beginner-friendly but industry-relevant stack:
+    Option A (Preferred)
+    Frontend: HTML, CSS, Vanilla JavaScript
+    Backend: Node.js + Express.js
+    Storage: JSON file
+    Folder structure must be clean and scalable.
+
+4. PROJECT STRUCTURE
+
+Create a professional folder structure like:
+
+    project-root/
+    │
+    ├── client/                 # Frontend
+    │   ├── index.html
+    │   ├── style.css
+    │   └── script.js
+    │
+    ├── server/                 # Backend
+    │   ├── app.js
+    │   ├── routes/
+    │   ├── controllers/
+    │   ├── models/
+    │   └── data/users.json
+    │
+    ├── package.json
+    ├── .gitignore
+    ├── README.md
+
+5. CODING STANDARDS
+    Use clean and modular code
+    Follow separation of concerns:
+    Routes
+    Controllers
+    Data handling
+    Use async/await properly
+    Add comments where needed
+    Avoid hardcoding values
+
+6. API DESIGN
+    POST /api/users
+    Accept JSON body
+    Validate input
+    Save to JSON file
+    Return success response
+    GET /api/users
+    Return all stored users
+
+7. VALIDATIONS
+Frontend + Backend:
+    Email must be valid
+    Phone must be numeric and proper length
+    Required fields must not be empty
+
+8. ERROR HANDLING
+    Show meaningful error messages
+    Handle:
+    Invalid input
+    File read/write errors
+    Server errors
+    9. README FILE (VERY IMPORTANT)
+
+Generate a professional README.md including:
+
+Project overview
+Features
+    Tech stack
+    Folder structure
+    Setup instructions
+    How to run project
+    API endpoints
+    Future improvements
+
+10. EXTRA (BONUS IF POSSIBLE)
+    Add:
+    Basic logging
+    Environment variables (.env)
+    CORS handling
+    Simple UI improvements
+
+⚠️ IMPORTANT INSTRUCTIONS
+Do NOT generate everything in one file
+Do NOT skip folder structure
+Do NOT write incomplete code
+Ensure project runs without errors
+Provide step-by-step setup instructions
+Ensure code is beginner-friendly but scalable
+🎯 OUTPUT EXPECTATION
+Complete working project
+Proper file separation
+Clean UI + working API
+Ready-to-run application
