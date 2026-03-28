@@ -1,0 +1,26 @@
+name: Triggering Events
+
+on:
+  push:
+    branches:
+      - main
+
+  pull_request:
+    branches: 
+      - main
+    types: 
+      - opened
+      - synchronize
+      - reopened
+    paths:
+      - "dummy-files/*.md"
+      - "!dummy-files/*.txt"
+  
+  schedule:
+    - cron: "0 0 * * *" # Runs daily at midnight UTC
+
+jobs:
+  dummy-file-changes:
+    runs-on: ubuntu-24.04
+    steps:
+      - run: echo "This job runs when a push or pull request modifies .md files in the dummy-files directory, but not .txt files."
