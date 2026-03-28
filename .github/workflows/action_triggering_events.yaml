@@ -1,0 +1,20 @@
+name: Triggering Events
+
+on:
+  push:
+    branches:
+      - main
+
+  pull_request:
+    branches: 
+      - main
+    types: 
+      - opened
+      - synchronize
+      - reopened
+    paths:
+      - "dummy-files/*.md"
+      - "!dummy-files/*.txt"
+  
+  schedule:
+    - cron: "0 0 * * *" # Runs daily at midnight UTC
