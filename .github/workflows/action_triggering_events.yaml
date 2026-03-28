@@ -19,9 +19,8 @@ on:
   schedule:
     - cron: "0 0 * * *" # Runs daily at midnight UTC
 
-
-  jobs:
-  dummy-job:
-    runs-on: ubuntu-latest
+jobs:
+  dummy-file-changes:
+    runs-on: ubuntu-24.04
     steps:
-      - run: echo "This job is triggered by push, pull_request, or schedule events."
+      - run: echo "This job runs when a push or pull request modifies .md files in the dummy-files directory, but not .txt files."
