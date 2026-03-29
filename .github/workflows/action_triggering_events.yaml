@@ -1,27 +1,28 @@
 name: Triggering Events
 
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - "dummy-files/*.md"
-      - "!dummy-files/*.txt"
+  # push:
+  #   branches:
+  #     - main
+  #   paths:
+  #     - "dummy-files/*.md"
+  #     - "!dummy-files/*.txt"
 
-  pull_request:
-    branches: 
-      - main
-    types: 
-      - opened
-      - synchronize
-      - reopened
-    paths:
-      - "dummy-files/*.md"
-      - "!dummy-files/*.txt"
+  # pull_request:
+  #   branches: 
+  #     - main
+  #   types: 
+  #     - opened
+  #     - synchronize
+  #     - reopened
+  #   paths:
+  #     - "dummy-files/*.md"
+  #     - "!dummy-files/*.txt"
   
-  schedule:
-    - cron: "0 0 * * *" # Runs daily at midnight UTC
-
+  # schedule:
+  #   - cron: "0 0 * * *" # Runs daily at midnight UTC
+  workflow_dispatch:
+    
 jobs:
   dummy-file-changes:
     runs-on: ubuntu-24.04

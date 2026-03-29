@@ -17,13 +17,23 @@ jobs:
           STEP_VAR: I_AM_STEP_VAR
         run: |
           echo "Accessing environment variables in Job 1"
-          echo "Global variable:  $GLOBAL_VAR"
-          echo "Job variable:     $JOB_VAR"  
-          echo "Step variable:    $STEP_VAR"
+          echo "Global variable:  $GLOBAL_VAR"  # visible
+          echo "Job variable:     $JOB_VAR"     # visible 
+          echo "Step variable:    $STEP_VAR"    # visible only here
       
       - name: Step without step-specific environment variable
         run: |
           echo "Accessing environment variables in Job 1"
-          echo "Global variable:  $GLOBAL_VAR"
-          echo "Job variable:     $JOB_VAR"  
-          echo "Step variable:    $STEP_VAR"  # This will be empty since STEP_VAR is not defined for this step
+          echo "Global variable:  $GLOBAL_VAR"  # visible
+          echo "Job variable:     $JOB_VAR"     # visible
+          echo "Step variable:    ${STEP_VAR:-<UNSET>}"  # This will be empty since STEP_VAR is not defined for this step
+
+  job-2:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Step in Job 2
+        run: |
+          echo "Accessing environment variables in Job 2"
+          echo "Global variable:  $GLOBAL_VAR"  # visible
+          echo "Job variable:     ${JOB_VAR:-<UNSET>}"     # This will be empty since JOB_VAR is not defined for this job
+          echo "Step variable:    ${STEP_VAR:-<UNSET>}"    # This will be empty since STEP_VAR is not defined for this step
