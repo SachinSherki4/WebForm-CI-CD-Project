@@ -1,0 +1,37 @@
+name: Passing Variables
+
+on: 
+  workflow_dispatch:  # this will allow manual triggering of the workflow from the GitHub UI, which is useful for testing and demonstration purposes.
+
+jobs:
+  variable_producer:
+    runs-on: ubuntu-24.04 
+    outputs:
+      foo: ${{steps.generate_foo.outputs.foo}}  # This will make the output variable 'foo' from the step with id 'generate_foo' available as a job output, which can be consumed by other jobs that depend on this one.
+    
+    steps:
+      - name: Set output variable
+        id: generate_foo
+        run: |
+          foo=bar
+          echo "::set-output name=foo::bar"  # This is the old way to set outputs, which is deprecated but still works in some contexts. The new way is to write to a file.      
+          # 1) Step output for job output 
+          echo "foo=${foo}" >> $GITHUB_OUTPUT  # This is the new way to set outputs, which is recommended for all new workflows.
+          # 2) Environment variable for subsequent steps in the same job  
+          echo "FOO=${foo}" >> $GITHUB_ENV  # This will set FOO as an environment variable for all subsequent steps in this job.
+
+      - name: Inspect value inside producer job
+        run: |
+          echo "Accessing variable in producer job"
+          echo "Step output variable (foo):   ${{steps.generate_foo.outputs.foo}}"  # This will access the step output variable 'foo' that was set in the previous step.
+          echo "Environment variable (FOO):   $FOO"  # This will access the environment variable FOO that was set in the previous step.
+
+  variable_consumer:
+    runs-on: ubuntu-24.04 
+    needs: variable_producer  # This makes this job dependent on the 'variable_producer' job, allowing it to access the outputs of that job.
+    steps:
+      - name: Access variable from producer job
+        run: |
+          echo "Accessing variable in consumer job"
+          echo "Producer job output variable (foo): ${{needs.variable_producer.outputs.foo}}"  # This will access the output variable 'foo' from the 'variable_producer' job.
+          echo "Producer job environment variable (FOO): ${FOO:-<UNSET>}"  # This will not be set, as environment variables do not propagate across jobs. The ${VAR:-<DEFAULT>} syntax is used to provide a default value if VAR is not set.
