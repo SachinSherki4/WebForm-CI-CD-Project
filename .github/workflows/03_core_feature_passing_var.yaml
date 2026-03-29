@@ -14,7 +14,7 @@ jobs:
         id: generate_foo
         run: |
           foo=bar
-          echo "::set-output name=foo::bar"  # This is the old way to set outputs, which is deprecated but still works in some contexts. The new way is to write to a file.      
+          # echo "::set-output name=foo::bar"  # This is the old way to set outputs, which is deprecated but still works in some contexts. The new way is to write to a file.      
           # 1) Step output for job output 
           echo "foo=${foo}" >> $GITHUB_OUTPUT  # This is the new way to set outputs, which is recommended for all new workflows.
           # 2) Environment variable for subsequent steps in the same job  
