@@ -58,29 +58,29 @@ jobs:
 
 
   # Self-hosted Runners
-  self-hosted-runner:
-    name: Self-hosted Runner
-    runs-on: self-hosted
-    steps:
-      - name: Show runner info
-        run: |
-          echo "This job runs on a self-hosted runner."
-          echo "Hello from ${{runner.os}} - ${{runner.arch}}"
-          echo "Runner name: ${{runner.name}}"
-          echo "Runner workspace: ${{runner.workspace}}"
+  # self-hosted-runner:
+  #   name: Self-hosted Runner
+  #   runs-on: self-hosted
+  #   steps:
+  #     - name: Show runner info
+  #       run: |
+  #         echo "This job runs on a self-hosted runner."
+  #         echo "Hello from ${{runner.os}} - ${{runner.arch}}"
+  #         echo "Runner name: ${{runner.name}}"
+  #         echo "Runner workspace: ${{runner.workspace}}"
   
   # Self-hosted Runners in a container
-  alpine-container-self-hosted-runner:  
-    name: Alpine Container - Self-hosted Runner
-    runs-on: self-hosted
-    container:
-      image: alpine:latest
-    steps:
-      - name: Show runner info
-        run: |
-          echo "This job runs on a self-hosted runner within an alpine container."
-          echo "Hello from ${{runner.os}} - ${{runner.arch}}"
-          echo "Runner name: ${{runner.name}}"
-          echo "Runner workspace: ${{runner.workspace}}"
-          echo "container info: $(cat /etc/os-release)"
-          echo "container Image: $(grep PRETTY_NAME /etc/os-release)"
+  # alpine-container-self-hosted-runner:  
+  #   name: Alpine Container - Self-hosted Runner
+  #   runs-on: self-hosted
+  #   container:
+  #     image: alpine:latest
+  #   steps:
+  #     - name: Show runner info
+  #       run: |
+  #         echo "This job runs on a self-hosted runner within an alpine container."
+  #         echo "Hello from ${{runner.os}} - ${{runner.arch}}"
+  #         echo "Runner name: ${{runner.name}}"
+  #         echo "Runner workspace: ${{runner.workspace}}"
+  #         echo "container info: $(cat /etc/os-release)"
+  #         echo "container Image: $(grep PRETTY_NAME /etc/os-release)"
