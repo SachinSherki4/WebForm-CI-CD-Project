@@ -1,0 +1,29 @@
+name: Artifacts
+
+on: 
+  workflow_dispatch:
+
+jobs:
+  Artifacts-producer:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Step 1 - Create artifact file
+        run: echo "This is an artifact from the producer job" > artifact.txt
+
+      - name: Step 2 - Upload artifact file to be used by other jobs
+        uses: actions/upload-artifact@v4
+        with:
+          name: example-artifact
+          path: artifact.txt 
+  
+  artifacts-consumer:
+    runs-on: ubuntu-24.04
+    needs: Artifacts-producer
+    steps:
+      - name: Step 1 - Download artifact file from producer job
+        uses: actions/download-artifact@v4
+        with:
+          name: example-artifact 
+      
+      - name: Step 2 - Display contents of the artifact file
+        run: cat artifact.txt  # This will display the contents of the artifact file that was 
