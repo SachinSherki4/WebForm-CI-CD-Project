@@ -1,0 +1,29 @@
+name: Enironment Variables
+
+on: 
+  workflow_dispatch:  # this will allow manual triggering of the workflow from the GitHub UI, which is useful for testing and demonstration purposes.
+
+env:
+  GLOBAL_VAR: "I_AM_GLOBAL_VAR"
+
+jobs:
+  job-1:
+    runs-on: ubuntu-24.04
+    env:
+      JOB_VAR: "I_AM_JOB_VAR"
+    steps:  
+      name: Step with step-specific environment variable
+      env:
+        STEP_VAR: "I_AM_STEP_VAR"
+      run: |
+        echo "Accessing environment variables in Job 1"
+        echo "Global variable:  $GLOBAL_VAR"
+        echo "Job variable:     $JOB_VAR"  
+        echo "Step variable:    $STEP_VAR"
+      
+      name: Step without step-specific environment variable
+      run: |
+        echo "Accessing environment variables in Job 1"
+        echo "Global variable:  $GLOBAL_VAR"
+        echo "Job variable:     $JOB_VAR"  
+        echo "Step variable:    $STEP_VAR"  # This will be empty since STEP_VAR is not defined for this step
