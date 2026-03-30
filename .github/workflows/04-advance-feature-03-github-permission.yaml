@@ -1,0 +1,42 @@
+name: Github Permission
+
+on:
+  workflow_dispatch:
+    
+
+jobs:
+  read-only-pr:
+    runs-on: ubuntu-24.04
+    permissions:
+      pull-requests: read
+    continue-on-error: true
+    steps:
+      - name: Step 1 - List first 5 pr (allow)
+          # This will fail because the permission is set to read-only for pull-requests
+        run: gh pr list --limit 5
+        env:
+          GH_TOKEN_SECRET: ${{ secrets.GH_TOKEN_SECRET }}
+
+      - name: Attempt to add a label (expected to fail)
+        run: gh pr edit 1 --add-label "bug"
+        env:
+          GH_TOKEN_SECRET: ${{ secrets.GH_TOKEN_SECRET }}
+
+      - name: COnfirm failure of label addition
+        if: failure()  # This condition checks if the previous step failed
+        run: echo "This step confirms that the previous step failed as expected due to insufficient permissions."
+
+  read-write-pr:
+    runs-on: ubuntu-24.04
+    permissions:
+      pull-requests: write
+    continue-on-error: true
+    steps:
+      - name: Attempt to add a label (expected to succeed)
+        run: gh pr edit 1 --add-label "bug"
+        env:
+          GH_TOKEN_SECRET: ${{ secrets.GH_TOKEN_SECRET }}
+          
+      - name: Confirm the
+        if: success()
+        run: echo "✅ Write operation succeeded!"
