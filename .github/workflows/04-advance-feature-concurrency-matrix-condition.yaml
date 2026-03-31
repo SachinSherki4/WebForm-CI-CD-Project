@@ -1,0 +1,41 @@
+name: COncurrency Matrix and Condition
+
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow}}-${{ github.ref}}
+  cancel-in-progress: true
+
+jobs:
+  matrix-job:
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: true
+      matrix:
+        number: [1,2]
+        letter: [a,b,c]
+        exclude:
+          - number: 2
+            letter: c
+    timeout-minutes: 5
+
+    steps:
+      # Step 1: Get all numbers and letters
+      - name: Echo number and letter
+        run: | 
+          echo "Number ${{matrix.number}}"
+          echo "Letter ${{matrix.letter}}"
+      
+      # Step 2: Run for everywhere except number=2 and letter=c
+      - name: Run for everywhere except number=2 and letter=c
+        if: ${{ !(matrix.number==2 && matrix.letter=='c')}}
+        run: echo "Running for number ${{matrix.number}} and letter ${{matrix.letter}}"
+
+  
+  Sleep-job:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Sleep for 2 minute
+        run: sleep 120
+        timeout-minutes: 2
